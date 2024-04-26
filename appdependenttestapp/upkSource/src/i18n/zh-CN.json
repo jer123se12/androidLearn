@@ -1,0 +1,12 @@
+
+{
+    "strings": {
+        "openApp": "打开应用",
+        "name": "旅客",
+        "description": "提醒",
+        "groupTitle": "旅客 提醒",
+        "title": "应用名称",
+        "firstMessage": "主题名称",
+        "secondMessage": "辅助文本"
+    }
+}

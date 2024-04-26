@@ -1,0 +1,12 @@
+
+{
+    "strings": {
+        "openApp": "open app",
+        "name": "travel",
+        "description": "reminder",
+        "groupTitle": "travel reminder",
+        "title": "App name",
+        "firstMessage": "Theme name",
+        "secondMessage": "Auxiliary text"
+    }
+}
