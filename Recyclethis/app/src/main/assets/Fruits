@@ -1,0 +1,21 @@
+
+{
+  "Items": [
+    {
+      "Fruitname": "Apple",
+      "supplier" : "me"
+    },
+    {
+      "Fruitname": "orange",
+      "supplier" : "others"
+    },
+    {
+      "Fruitname": "bananas",
+      "supplier" : "things"
+    },
+    {
+      "Fruitname": "others",
+      "supplier" : "things"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "date": "2024-05-10",
+    "lab_result": {
+      "name": "Blood Test",
+      "location": "City Hospital Lab",
+      "specimen_collection_date": "2024-05-05",
+      "test_result_date": "2024-05-08",
+      "notes": "Normal results observed"
+    },
+    "condition": {
+      "name": "Anemia",
+      "onset_date": "2024-04-20",
+      "abatement_date": null,
+      "notes": "Prescribed iron supplements"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "date": "2024-05-09",
+    "lab_result": {
+      "name": "X-Ray",
+      "location": "Regional Medical Center Radiology",
+      "specimen_collection_date": "2024-05-06",
+      "test_result_date": "2024-05-07",
+      "notes": "Fracture detected in right wrist"
+    },
+    "condition": {
+      "name": "Bone Fracture",
+      "onset_date": "2024-05-06",
+      "abatement_date": null,
+      "notes": "Splint applied, follow-up appointment scheduled"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Emily Johnson",
+    "date": "2024-05-08",
+    "lab_result": {
+      "name": "MRI Scan",
+      "location": "City Imaging Center",
+      "specimen_collection_date": "2024-05-02",
+      "test_result_date": "2024-05-03",
+      "notes": "No abnormalities detected"
+    },
+    "condition": {
+      "name": "Back Pain",
+      "onset_date": "2024-04-25",
+      "abatement_date": null,
+      "notes": "Physical therapy recommended"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Michael Brown",
+    "date": "2024-05-07",
+    "lab_result": {
+      "name": "Stool Test",
+      "location": "Community Health Lab",
+      "specimen_collection_date": "2024-05-03",
+      "test_result_date": "2024-05-05",
+      "notes": "No abnormalities detected"
+    },
+    "condition": {
+      "name": "Gastrointestinal Upset",
+      "onset_date": "2024-04-28",
+      "abatement_date": null,
+      "notes": "Dietary changes advised"
+    }
+  },
+  {
+    "id": 5,
+    "name": "David Wilson",
+    "date": "2024-05-06",
+    "lab_result": {
+      "name": "Blood Glucose Test",
+      "location": "Regional Medical Center Lab",
+      "specimen_collection_date": "2024-05-01",
+      "test_result_date": "2024-05-04",
+      "notes": "Elevated fasting blood sugar levels"
+    },
+    "condition": {
+      "name": "Diabetes Mellitus",
+      "onset_date": "2024-04-20",
+      "abatement_date": null,
+      "notes": "Initiated dietary changes and medication"
+    }
+  }
+]

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_nav_item_notifications"
+        android:icon="@drawable/icon_basket"
+        android:title="Notification" />
+
+    <item
+        android:id="@+id/bottom_nav_item_home"
+        android:icon="@drawable/icon_fridge"
+        android:title="Home"
+        />
+
+    <item
+        android:id="@+id/bottom_nav_item_history"
+        android:icon="@drawable/icon_list"
+        android:title="History"
+        />
+</menu>
