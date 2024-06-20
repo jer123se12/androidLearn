@@ -1,17 +1,15 @@
 package com.seedling.demo.medicalrecordstest
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.UiContext
 import androidx.fragment.app.Fragment
-import org.json.JSONObject
-import android.util.Log
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import org.json.JSONArray
 /**
  * A simple [Fragment] subclass.
  * Use the [MedicalRecs.newInstance] factory method to
@@ -19,17 +17,32 @@ import android.util.Log
  */
 class MedicalRecs : Fragment() {
 
+    private lateinit var users:JSONArray
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val jsonstring= requireContext().assets.open("records.json").bufferedReader().use{it.readText()}
-        val json=JSONObject(jsonstring)
-        Log.i("mine", json.toString())
+        users=JSONArray(jsonstring)
 
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val myrv=view.findViewById<RecyclerView>(R.id.myrv)
+        val itemAdapter=MyAdapter(users){
+            var bundle=Bundle()
+            bundle.putInt("position", it)
 
-
-
+            val detai=details()
+            detai.arguments=bundle
+            val fragmentManager=parentFragmentManager
+            val trans=fragmentManager.beginTransaction()
+            trans.replace(R.id.fragmentContainerView,detai)
+            trans.addToBackStack(null)
+            trans.commit()
+        }
+        myrv.layoutManager=LinearLayoutManager(context)
+        myrv.adapter=itemAdapter
 
     }
 

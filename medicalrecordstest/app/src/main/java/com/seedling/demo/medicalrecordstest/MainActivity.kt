@@ -1,14 +1,7 @@
 package com.seedling.demo.medicalrecordstest
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract.Profile
-import android.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.navigation.NavigationView
 import com.seedling.demo.medicalrecordstest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,10 +12,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         binding.topAppBar.setNavigationOnClickListener {
             binding.draw.open()
         }
-        gotofrag(profile())
+        gotofrag(MedicalRecs())
         binding.nav.setNavigationItemSelectedListener{
             when(it.itemId){
                 R.id.profile->gotofrag(profile())
@@ -32,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }
+            binding.draw.close()
             true
         }
 
@@ -41,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager=supportFragmentManager
         val trans=fragmentManager.beginTransaction()
         trans.replace(R.id.fragmentContainerView,fragment)
+        trans.addToBackStack(null)
         trans.commit()
     }
 }
