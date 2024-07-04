@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.json.JSONArray
+import java.io.File
+
 /**
  * A simple [Fragment] subclass.
  * Use the [MedicalRecs.newInstance] factory method to
@@ -20,10 +22,9 @@ class MedicalRecs : Fragment() {
     private lateinit var users:JSONArray
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val jsonstring= requireContext().assets.open("records.json").bufferedReader().use{it.readText()}
+        val file: File = File(requireContext().filesDir, "records.json")
+        val jsonstring=file.readText()
         users=JSONArray(jsonstring)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

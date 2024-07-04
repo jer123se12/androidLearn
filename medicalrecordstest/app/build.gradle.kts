@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.backend.wasm.ir2wasm.bind
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -40,7 +38,10 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.camera:camera-camera2:1.1.0-alpha04")
+    implementation("androidx.camera:camera-lifecycle:1.1.0-alpha04")
+    implementation("androidx.camera:camera-view:1.0.0-alpha21")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")

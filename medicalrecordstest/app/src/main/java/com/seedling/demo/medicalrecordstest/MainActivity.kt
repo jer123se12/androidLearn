@@ -3,6 +3,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.seedling.demo.medicalrecordstest.databinding.ActivityMainBinding
+import java.io.File
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
@@ -11,6 +13,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val file: File = File(filesDir, "records.json")
+        if (!file.exists()) {
+            val outputStream=openFileOutput("records.json", MODE_PRIVATE)
+            val text=assets.open("records.json").bufferedReader().use{it.readText()}
+            outputStream.write(text.toByteArray())
+            outputStream.close()
+        }
 
 
         binding.topAppBar.setNavigationOnClickListener {
@@ -39,4 +48,9 @@ class MainActivity : AppCompatActivity() {
         trans.addToBackStack(null)
         trans.commit()
     }
+
+
+
+
 }
+
