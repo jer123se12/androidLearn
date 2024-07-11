@@ -8,12 +8,23 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.registerForActivityResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import org.json.JSONObject
 import java.io.File
+import kotlin.contracts.contract
 
 class profile : Fragment() {
+    private lateinit var galleryimg: ImageView
+    private var mygal=registerForActivityResult(ActivityResultContracts.GetContent(),
+        ActivityResultCallback {
+            galleryimg.setImageURI(it)
+        })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +76,7 @@ class profile : Fragment() {
         val img=view?.findViewById<ImageView>(R.id.imageView)
         img?.isClickable=true
         img?.setOnClickListener{
+            mygal.launch("image/*")
 
         }
     }
