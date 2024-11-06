@@ -3,8 +3,6 @@ package com.sp.restaurantlist;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.R.layout;
-import android.content.Context;
-import android.database.Cursor;
 import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,10 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -39,9 +35,6 @@ public class main extends AppCompatActivity {
     private RestaurantAdapter adapter=null;
     TabHost host;
     ListView list;
-    Cursor model=null;
-    RestaurantHelper helper=null;
-
     boolean showmenu=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +46,8 @@ public class main extends AppCompatActivity {
         number=findViewById(R.id.restaurant_tel);
         rg=findViewById(R.id.restaurant_types);
         list = findViewById(R.id.restaurants);
-        helper=new RestaurantHelper(this);
-        model= helper.getAll();
-        adapter=new RestaurantAdapter(this, model, 0);
+        adapter=new RestaurantAdapter();
         list.setAdapter(adapter);
-        list.setOnItemClickListener(onic);
         host=findViewById(R.id.thost);
         host.setup();
         TabHost.TabSpec spec=host.newTabSpec("List");
@@ -76,8 +66,6 @@ public class main extends AppCompatActivity {
                 invalidateOptionsMenu();
             }
         });
-
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,15 +76,13 @@ public class main extends AppCompatActivity {
                 num=number.getText().toString();
                 RType=((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
                 Toast.makeText(getApplicationContext(), n+"\n"+a+"\n"+num+"\n"+RType,Toast.LENGTH_LONG).show();
-//                Restaurant res =  new Restaurant();
-//                res.setAddress(a);
-//                res.setName(n);
-//                res.setTelephone(num);
-//                res.setRestaurantType(RType);
+                Restaurant res =  new Restaurant();
+                res.setAddress(a);
+                res.setName(n);
+                res.setTelephone(num);
+                res.setRestaurantType(RType);
 //                restaurants.add(res);
-                helper.insert(n,a,num,RType);
-                model=helper.getAll();
-                adapter.swapCursor(model);
+                adapter.add(res);
                 host.setCurrentTab(0);
             }
         });
@@ -149,12 +135,12 @@ public class main extends AppCompatActivity {
             icon = row.findViewById(R.id.icon);
         }
 
-        void populateFrom(Cursor c, RestaurantHelper h) {
-            restName.setText(h.getRestaurantName(c));
-            addr.setText(h.getRestaurantAddress(c)+", "+h.getRestaurantTel(c));
-            if (h.getRestaurantType(c).equals("Chinese")) {
+        void populateFrom(Restaurant r) {
+            restName.setText(r.getName());
+            addr.setText(r.getAddress()+", "+r.getTelephone());
+            if (r.getRestaurantType().equals("Chinese")) {
                 icon.setImageResource(R.drawable.ball_red);
-            } else if (h.getRestaurantType(c).equals("Western")) {
+            } else if (r.getRestaurantType().equals("Western")) {
                 icon.setImageResource(R.drawable.ball_yellow);
             } else {
                 icon.setImageResource(R.drawable.ball_green);
@@ -162,68 +148,30 @@ public class main extends AppCompatActivity {
         }
     }
 
-    class RestaurantAdapter extends CursorAdapter {
-        RestaurantAdapter(Context context, Cursor cursor, int flags) {
-            super(context, cursor, flags);
-        }
+    class RestaurantAdapter extends ArrayAdapter<Restaurant> {
+        RestaurantAdapter() { super(main.this, R.layout.row, restaurants); }
 
         @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            RestaurantHolder holder = (RestaurantHolder) view.getTag();
-            holder.populateFrom(cursor, helper);
-        }
-
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            LayoutInflater inflater = getLayoutInflater();
-            View row = inflater.inflate(R.layout.row, parent, false);
-            RestaurantHolder holder = new RestaurantHolder(row);
-            row.setTag(holder);
-            return (row);
-        }
-
-
-    }
-    AdapterView.OnItemClickListener onic=new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            model.moveToPosition(position);
-            name.setText(helper.getRestaurantName(model));
-            addr.setText(helper.getRestaurantAddress(model));
-            number.setText(helper.getRestaurantTel(model));
-            String sel=helper.getRestaurantType(model);
-            Log.i("rg", sel);
-            switch (sel){
-                case "Chinese":
-                    rg.check(R.id.Chinese);
-                    break;
-                case "Western":
-                    rg.check(R.id.Western);
-                    break;
-                case "Indian":
-                    rg.check(R.id.Indian);
-                    break;
-                case "Indonesia":
-                    rg.check(R.id.Indonesia);
-                    break;
-                case "Korean":
-                    rg.check(R.id.Korean);
-                    break;
-                case "Japanese":
-                    rg.check(R.id.Japanese);
-                    break;
-                case "Thai":
-                    rg.check(R.id.Thai);
-                    break;
-                default:
-
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View row = convertView;
+            RestaurantHolder holder;
+            if (row == null) {
+                LayoutInflater inflater = getLayoutInflater();
+                row = inflater.inflate(R.layout.row, parent, false);
+                holder = new RestaurantHolder(row);
+                row.setTag(holder);
+            } else {
+                holder = (RestaurantHolder) row.getTag();
             }
-            host.setCurrentTab(1);
+            holder.populateFrom(restaurants.get(position));
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    host.setCurrentTab(1);
+                }
+            });
+
+            return row;
         }
-    };
-
-
-
-
+    }
 }
-
